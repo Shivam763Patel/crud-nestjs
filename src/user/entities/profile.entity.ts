@@ -8,7 +8,7 @@ export class Profile
     id: number
 
     @Column()
-    firstName: string;
+    username: string;
 
     @Column()
     lastName: string;

@@ -1,9 +1,24 @@
+import { Exclude } from "@nestjs/class-transformer"
+
 export class createUserParams
 {
     username: string
     password: string
 }
 
+export class SerializedUser
+{
+    username: string
+
+    @Exclude()
+    password: string
+    static this: any
+
+    constructor (partial: Partial<SerializedUser>)
+    {
+        Object.assign(this, partial)
+    }
+}
 export class updateUserParams
 {
     username: string
@@ -12,7 +27,7 @@ export class updateUserParams
 
 export class createUserProfilParams
 {
-    firstName: string
+    username: string
     lastName: string
     age: number
     

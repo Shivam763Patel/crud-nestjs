@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Res } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Res, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { Response, response } from 'express';
 import { createUserProfileDto } from 'src/dtos/createProfile.dto';
 
@@ -7,7 +7,7 @@ import { createUserDto } from 'src/dtos/createUser.dto';
 import { createUserPostDto } from 'src/dtos/createUserPost.dto';
 import { updateUserDto } from 'src/dtos/updateUser.dtio';
 import { UsersService } from 'src/user/services/users/users.service';
-import { createUserProfilParams } from 'src/utils/types';
+import { createUserProfilParams, SerializedUser } from 'src/utils/types';
 
 @Controller('/users')
 export class UsersController {
@@ -17,19 +17,26 @@ export class UsersController {
         
     }
 
+    // @UseInterceptors(ClassSerializerInterceptor)
     @Get('deatils')
     getUsers()
     {
        return this.userService.findUsers();
+    //    if(user) return new SerializedUser()
+
+    //    else
+    //     throw new HttpException('User not found ',HttpStatus.BAD_REQUEST)
        
     }
 
 
     @Post('add')
-    async createUser(@Body() createUserDto: createUserDto, @Res() response: Response)
+    async createUser(@Body(ValidationPipe) createUserDto: createUserDto, 
+    @Res() response: Response)
     {
     const addUser = await this.userService.createUsers(createUserDto)
        console.log("user data new",addUser)
+       
         response.json({
 
             message: "User profile added",
@@ -68,19 +75,19 @@ export class UsersController {
 
     //User Profile
 
-    @Post('profile/add/:id')
-    async createUserProfile(
-        @Param('id', ParseIntPipe) id: number, @Res() response: Response,
-        @Body() createUserProfileDto: createUserProfileDto,)
-        {
-            const user = await this.userService.createUserProfile(id, createUserProfileDto);
+    // @Post('profile/add/:id')
+    // async createUserProfile(
+    //     @Param('id', ParseIntPipe) id: number, @Res() response: Response,
+    //     @Body() createUserProfileDto: createUserProfileDto,)
+    //     {
+    //         const user = await this.userService.createUserProfile(id, createUserProfileDto);
 
-            response.json({
+    //         response.json({
 
-                message: "User profile added",
-                data: user
-            })
-        }
+    //             message: "User profile added",
+    //             data: user
+    //         })
+    //     }
 
     @Post('post/add/:id')
     async createUserPost(@Param('id', ParseIntPipe) id: number, 

@@ -12,4 +12,12 @@ export class createUserDto
     @MaxLength(20)
     password: string
 
+ 
+    createdAt: Date
+
+    validatePassword: string
+
+    validateUserPassword: String
+
+
 }

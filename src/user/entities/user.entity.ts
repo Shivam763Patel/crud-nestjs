@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { Post } from "./post.entity";
 import { Profile } from "./profile.entity";
-
+import * as bcrypt from 'bcrypt';
 @Entity({ name: 'user-crud'})
 export class User
 {
@@ -10,6 +10,10 @@ export class User
 
     @Column()
     username: string
+
+    @Column()
+    salt: string
+
 
     @Column()
     password: string
@@ -28,4 +32,6 @@ export class User
     @OneToMany(() => Profile, (profile) => profile.user)
     profiles: Profile[]
 
+    validateUserPassword: String
+  
 }

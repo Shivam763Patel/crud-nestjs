@@ -4,6 +4,7 @@ import { Post } from './user/entities/post.entity';
 import { Profile } from './user/entities/profile.entity';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -20,7 +21,7 @@ import { UserModule } from './user/user.module';
 
   }), 
 
-  UserModule
+  UserModule, AuthModule
 ],
   controllers: [],
   providers: [],

@@ -4,6 +4,8 @@ export class createUserParams
 {
     username: string
     password: string
+    createdAt: Date
+
 }
 
 export class SerializedUser

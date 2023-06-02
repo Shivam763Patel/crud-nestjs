@@ -35,15 +35,31 @@ export class UsersController {
     @Res() response: Response)
     {
     const addUser = await this.userService.createUsers(createUserDto)
-       console.log("user data new",addUser)
+    
        
         response.json({
 
-            message: "User profile added",
-            data: addUser
+            message: "User profile added"
+          
         })
         
     }
+
+
+    // @Post('signIn')
+    // async loginUser(@Body(ValidationPipe) createUserDto: createUserDto, 
+    // @Res() response: Response)
+    // {
+    // const addUser = await this.userService.loginUser(createUserDto)
+    
+       
+    //     response.json({
+
+    //         message: "User logged-In !"
+          
+    //     })
+        
+    // }
 
 //     @Post('newCreate')
 //     newCreateUser(@Body() userData: createUserDto)

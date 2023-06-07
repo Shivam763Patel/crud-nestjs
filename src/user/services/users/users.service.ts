@@ -1,11 +1,12 @@
-import { ConflictException, HttpException, HttpStatus, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, HttpException, HttpStatus, Injectable, InternalServerErrorException, Res, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from 'src/user/entities/post.entity';
 import { Profile } from 'src/user/entities/profile.entity';
 import { User } from 'src/user/entities/user.entity';
-import { createUserParams, createUserPostParams, createUserProfilParams, updateUserParams } from 'src/utils/types';
+import { createUserParams, createUserPostParams, createUserProfilParams, loginUserParams, updateUserParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { response } from 'express';
 
 
  
@@ -18,7 +19,6 @@ export class UsersService {
         @InjectRepository(User) private userRepositorty: Repository<User>,
         @InjectRepository(Profile) private profileRepositorty: Repository<Profile>, 
         @InjectRepository(Post) private postRepositorty: Repository<Post>, 
-        
         
         
     
@@ -277,5 +277,33 @@ export class UsersService {
 
     }
 
+    // findUserByEmail(email: string)
+    // {
+        
+    // }
 
+
+    findUserByUsername(UserDetails: loginUserParams )
+
+    
+    {
+
+        const { username  } = UserDetails
+        const logindata = this.userRepositorty.find({ where : { username } })
+        
+        if(logindata)
+        {
+            
+            console.log("user login data",logindata)
+
+        }
+
+        else
+        {
+            throw new HttpException('user not exsists', HttpStatus.BAD_REQUEST)
+        
+        }
+         
+
+    }
 }

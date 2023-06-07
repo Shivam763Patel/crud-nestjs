@@ -33,5 +33,7 @@ export class User
     profiles: Profile[]
 
     validateUserPassword: String
+
+
   
 }

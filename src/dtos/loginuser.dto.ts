@@ -1,7 +1,5 @@
-export class loginParams
+export class loginuser
 {
     username: string
     password: string
-
-
 }

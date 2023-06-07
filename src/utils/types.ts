@@ -41,3 +41,9 @@ export class createUserPostParams
     caption: string
     
 }
+
+export class loginUserParams
+{
+    username: string
+    password: string
+}
